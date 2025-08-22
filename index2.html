@@ -50,7 +50,6 @@
     footer{padding:32px 0;color:var(--muted)}
     .wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:#fff;padding:14px 16px;border-radius:999px;box-shadow:0 8px 22px rgba(0,0,0,.18);font-weight:800;z-index:60}
     .logo-img{height:150px}
-
 /* ===== Mobile header tweaks ===== */
 @media(max-width:700px){
   header .wrap{
@@ -86,7 +85,7 @@
 /* ===== Hide WhatsApp direct + floating globally (toggle via <html> attrs) ===== */
 .wa-direct{ display:none !important; }
 .wa-float{ display:none !important; }
-/* Para reactivarlos, edita la etiqueta <html>:
+/* To re-enable, edit the <html> tag:
    <html lang="es" show-wa-direct="1" show-wa-float="1">
 */
 html[show-wa-direct="1"] .wa-direct{ display:inline-block !important; }
@@ -104,6 +103,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         <a href="#catalogo">Desarrollos</a>
         <a href="#preventa">Pre-venta</a>
         <a href="#usadas">Usadas bajo costo</a>
+        <a class="btn" href="index-otp.html?utm_source=header_cta">Verificar por seguridad</a>
         <a href="#quienes">Quiénes somos</a>
         <a href="#contacto">Contacto</a>
       </nav>

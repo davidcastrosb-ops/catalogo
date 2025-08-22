@@ -50,6 +50,7 @@
     footer{padding:32px 0;color:var(--muted)}
     .wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:#fff;padding:14px 16px;border-radius:999px;box-shadow:0 8px 22px rgba(0,0,0,.18);font-weight:800;z-index:60}
     .logo-img{height:150px}
+
 /* ===== Mobile header tweaks ===== */
 @media(max-width:700px){
   header .wrap{
@@ -85,7 +86,7 @@
 /* ===== Hide WhatsApp direct + floating globally (toggle via <html> attrs) ===== */
 .wa-direct{ display:none !important; }
 .wa-float{ display:none !important; }
-/* To re-enable, edit the <html> tag:
+/* Para reactivarlos, edita la etiqueta <html>:
    <html lang="es" show-wa-direct="1" show-wa-float="1">
 */
 html[show-wa-direct="1"] .wa-direct{ display:inline-block !important; }
@@ -118,7 +119,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         <h1>Tu casa propia más cerca de lo que imaginas.</h1>
         <p>Te acompañamos con <strong>Transparencia, Honestidad y Calidad</strong>, de principio a fin.</p>
         
-          <div class="grid cols-2" style="align-items:end">
+          <div id="otp-block" class="grid cols-2" style="align-items:end">
             <div>
               <label>Código de verificación (6 dígitos)</label>
               <input name="otp_code" inputmode="numeric" pattern="\d{6}" maxlength="6" placeholder="Ej. 123456" />
@@ -388,7 +389,6 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
       el.textContent = verifiedEmail ? 'Correo verificado. Ya puedes enviar el formulario.' : 'Primero envía y verifica el código.';
     };
     otpStatus();
-
     async function sendOTP(email){
       const res = await fetch(WEBAPP_URL, {
         method:'POST',
@@ -407,14 +407,12 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
       const t = await res.text().catch(()=>'');
       return t;
     }
-
     document.getElementById('btn-send-otp')?.addEventListener('click', async () => {
       const email = document.querySelector('input[name="email"]')?.value?.trim();
       if(!email){ alert('Escribe tu correo primero.'); return; }
       const msg = await sendOTP(email);
       const s = document.getElementById('otp-status'); s.textContent = msg;
     });
-
     document.getElementById('btn-verify-otp')?.addEventListener('click', async () => {
       const email = document.querySelector('input[name="email"]')?.value?.trim();
       const code  = document.querySelector('input[name="otp_code"]')?.value?.trim();
@@ -427,6 +425,20 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
       const submitBtn = document.getElementById('btn-submit');
       if (verifiedEmail && submitBtn){ submitBtn.disabled = false; submitBtn.setAttribute('aria-disabled','false'); }
     });
+    // ===== Gating: OTP solo si ?otp=1 o utm_medium=cpc/ads/paid =====
+    (function(){
+      const p = new URLSearchParams(location.search);
+      const medium = (p.get('utm_medium') || '').toLowerCase();
+      const needsOTP = p.get('otp') === '1' || /(cpc|ads|paid)/.test(medium);
+      if(!needsOTP){
+        const block = document.getElementById('otp-block');
+        if(block) block.style.display = 'none';
+        window.verifiedEmail = true;
+        const submitBtn = document.getElementById('btn-submit');
+        if (submitBtn){ submitBtn.disabled = false; submitBtn.setAttribute('aria-disabled','false'); }
+        const s = document.getElementById('otp-status'); if(s) s.textContent='';
+      }
+    })();
 
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw82j79ZCIuspkIiESSPnBEKc1HonqObKcZUy__fiXyvIyLKJm1vIrfU7H-GFZDA7O0Gw/exec";
     document.getElementById('year').textContent = new Date().getFullYear();

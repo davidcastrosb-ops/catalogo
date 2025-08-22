@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trhoncal Homes | Landing de Catálogo – Guadalajara</title>
+  <title>Trhoncal Homes | Verificación y Catálogo – Guadalajara</title>
   <meta name="description" content="Trhoncal Homes: Transparencia, Honestidad y Calidad. Casas y departamentos en Guadalajara y alrededores. Acompañamiento total en tu crédito y compra." />
   <style>
     :root{
@@ -50,7 +50,6 @@
     footer{padding:32px 0;color:var(--muted)}
     .wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:#fff;padding:14px 16px;border-radius:999px;box-shadow:0 8px 22px rgba(0,0,0,.18);font-weight:800;z-index:60}
     .logo-img{height:150px}
-
 /* ===== Mobile header tweaks ===== */
 @media(max-width:700px){
   header .wrap{
@@ -86,7 +85,7 @@
 /* ===== Hide WhatsApp direct + floating globally (toggle via <html> attrs) ===== */
 .wa-direct{ display:none !important; }
 .wa-float{ display:none !important; }
-/* Para reactivarlos, edita la etiqueta <html>:
+/* To re-enable, edit the <html> tag:
    <html lang="es" show-wa-direct="1" show-wa-float="1">
 */
 html[show-wa-direct="1"] .wa-direct{ display:inline-block !important; }
@@ -104,6 +103,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         <a href="#catalogo">Desarrollos</a>
         <a href="#preventa">Pre-venta</a>
         <a href="#usadas">Usadas bajo costo</a>
+        <a class="btn" href="index-otp.html?utm_source=header_cta">Verificar por seguridad</a>
         <a href="#quienes">Quiénes somos</a>
         <a href="#contacto">Contacto</a>
       </nav>
@@ -117,7 +117,20 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         <span class="badge" style="border-color:var(--gold);color:var(--gold);background:#fff6d7">Guadalajara y alrededores</span>
         <h1>Tu casa propia más cerca de lo que imaginas.</h1>
         <p>Te acompañamos con <strong>Transparencia, Honestidad y Calidad</strong>, de principio a fin.</p>
-        <div class="cta-bar">
+        
+          <div class="grid cols-2" style="align-items:end">
+            <div>
+              <label>Código de verificación (6 dígitos)</label>
+              <input name="otp_code" inputmode="numeric" pattern="\d{6}" maxlength="6" placeholder="Ej. 123456" />
+              <small id="otp-status" style="display:block;color:#334155;margin-top:6px"></small>
+            </div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap">
+              <button type="button" class="btn" id="btn-send-otp">Enviar código al correo</button>
+              <button type="button" class="btn" id="btn-verify-otp">Verificar código</button>
+            </div>
+          </div>
+
+          <div class="cta-bar">
           <a class="btn primary" href="#contacto">Quiero información</a>
           <a class="btn ghost" href="#catalogo">Ver desarrollos</a>
         </div>
@@ -313,7 +326,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
             <textarea name="mensaje" rows="4" placeholder="Cuéntanos qué buscas (recámaras, amenidades, tiempo de compra)..."></textarea>
           </div>
           <div class="cta-bar">
-            <button class="btn primary" type="submit">Enviar y hablar por WhatsApp</button>
+            <button class="btn primary" type="submit" id="btn-submit" disabled aria-disabled="true">Enviar y hablar por WhatsApp</button>
             <a class="btn wa-direct" href="https://wa.me/523337241151?text=Hola%20Trhoncal%20Homes%2C%20quiero%20informaci%C3%B3n%20sobre%20propiedades" target="_blank" rel="noopener">Escribir directo</a>
           </div>
           <p id="form-msg" style="margin:10px 0 0;display:none"></p>
@@ -365,9 +378,59 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
       e.target.value = f;
     });
 
+    
+    // ===== OTP logic (email) =====
+    let verifiedEmail = false;
+    const otpStatus = () => {
+      const el = document.getElementById('otp-status');
+      if (!el) return;
+      el.style.color = verifiedEmail ? '#0c7a43' : '#334155';
+      el.textContent = verifiedEmail ? 'Correo verificado. Ya puedes enviar el formulario.' : 'Primero envía y verifica el código.';
+    };
+    otpStatus();
+
+    async function sendOTP(email){
+      const res = await fetch(WEBAPP_URL, {
+        method:'POST',
+        headers:{'Content-Type': 'text/plain;charset=utf-8'},
+        body: JSON.stringify({ action:'send_otp', channel:'email', email })
+      });
+      const t = await res.text().catch(()=>'');
+      return t || 'Código enviado (revisa tu correo).';
+    }
+    async function verifyOTP(email, code){
+      const res = await fetch(WEBAPP_URL, {
+        method:'POST',
+        headers:{'Content-Type': 'text/plain;charset=utf-8'},
+        body: JSON.stringify({ action:'verify_otp', channel:'email', email, code })
+      });
+      const t = await res.text().catch(()=>'');
+      return t;
+    }
+
+    document.getElementById('btn-send-otp')?.addEventListener('click', async () => {
+      const email = document.querySelector('input[name="email"]')?.value?.trim();
+      if(!email){ alert('Escribe tu correo primero.'); return; }
+      const msg = await sendOTP(email);
+      const s = document.getElementById('otp-status'); s.textContent = msg;
+    });
+
+    document.getElementById('btn-verify-otp')?.addEventListener('click', async () => {
+      const email = document.querySelector('input[name="email"]')?.value?.trim();
+      const code  = document.querySelector('input[name="otp_code"]')?.value?.trim();
+      if(!email || !code){ alert('Escribe tu correo y el código.'); return; }
+      const msg = await verifyOTP(email, code);
+      verifiedEmail = /verificado|ok|correct/i.test(msg);
+      const s = document.getElementById('otp-status');
+      s.textContent = msg || (verifiedEmail ? 'Verificado.' : 'No verificado.');
+      otpStatus();
+      const submitBtn = document.getElementById('btn-submit');
+      if (verifiedEmail && submitBtn){ submitBtn.disabled = false; submitBtn.setAttribute('aria-disabled','false'); }
+    });
+
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw82j79ZCIuspkIiESSPnBEKc1HonqObKcZUy__fiXyvIyLKJm1vIrfU7H-GFZDA7O0Gw/exec";
     document.getElementById('year').textContent = new Date().getFullYear();
-    function handleSubmit(e){
+    function handleSubmit(e){ if (typeof verifiedEmail !== 'undefined' && !verifiedEmail) { alert('Primero verifica tu correo con el código.'); return false; }
       e.preventDefault();
       const formEl = e.target;
       const data = Object.fromEntries(new FormData(formEl).entries());
