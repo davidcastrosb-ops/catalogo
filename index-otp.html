@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trhoncal Homes | Landing de Catálogo – Guadalajara</title>
+  <meta name="description" content="Trhoncal Homes: Transparencia, Honestidad y Calidad. Casas y departamentos en Guadalajara y alrededores. Acompañamiento total en tu crédito y compra." />
+  <style>
+    :root{
+      --gold:#C9A227;
+      --dark:#0f172a;
+      --muted:#475569;
+      --bg:#ffffff;
+      --light:#f8fafc;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;background:var(--bg);color:var(--dark);}
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    .btn{display:inline-block;padding:12px 20px;border-radius:999px;border:1px solid var(--gold);font-weight:600}
+    .btn.primary{background:var(--gold);color:#fff;border-color:var(--gold)}
+    .btn.ghost{background:transparent;color:var(--gold)}
+    header{position:sticky;top:0;background:rgba(255,255,255,.95);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid #e2e8f0;z-index:50}
+    header .wrap{display:flex;align-items:center;justify-content:space-between;height:72px}
+    nav a{margin-left:18px;color:var(--muted)}
+    .hero{padding:56px 0 36px;background:linear-gradient(#fff,#fff),radial-gradient(1200px 500px at 80% -100px,rgba(201,162,39,.12),transparent)}
+    .hero h1{font-size:clamp(28px,5vw,44px);line-height:1.1;margin:8px 0 10px}
+    .hero p{color:var(--muted);font-size:clamp(14px,2.4vw,18px);margin:0 0 22px}
+    .badges{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 0}
+    .badge{padding:8px 12px;border:1px solid #e2e8f0;border-radius:999px;color:#1e293b;background:#fff}
+    .section{padding:42px 0}
+    .section h2{font-size:clamp(22px,4vw,32px);margin:0 0 14px}
+    .cards{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+    .card{grid-column:span 12;background:#fff;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden;box-shadow:0 8px 22px rgba(0,0,0,.04)}
+    .card img{width:100%;height:200px;object-fit:cover;background:#e2e8f0}
+    .card .p{padding:14px}
+    .card h3{margin:0 0 6px;font-size:18px}
+    .card .meta{color:var(--muted);font-size:14px;margin-bottom:10px}
+    .card .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    @media(min-width:700px){.card{grid-column:span 6}}
+    @media(min-width:1000px){.card{grid-column:span 4}}
+    .about{background:var(--light);border-top:1px solid #e2e8f0;border-bottom:1px solid #e2e8f0}
+    form{display:grid;gap:12px}
+    input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:12px}
+    label{font-size:14px;color:#334155}
+    .grid{display:grid;gap:14px}
+    @media(min-width:700px){.grid.cols-2{grid-template-columns:1fr 1fr}}
+    .cta-bar{display:flex;gap:10px;flex-wrap:wrap}
+    .map{width:100%;height:360px;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden}
+    footer{padding:32px 0;color:var(--muted)}
+    .wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:#fff;padding:14px 16px;border-radius:999px;box-shadow:0 8px 22px rgba(0,0,0,.18);font-weight:800;z-index:60}
+    .logo-img{height:50px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container wrap">
+      <div class="logo">
+        <img class="logo-img" src="logo-trhoncal-flat.png" alt="Trhoncal Homes logo" />
+      </div>
+      <nav>
+        <a href="#catalogo">Desarrollos</a>
+        <a href="#preventa">Pre-venta</a>
+        <a href="#usadas">Usadas bajo costo</a>
+        <a href="#quienes">Quiénes somos</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container">
+        <span class="badge" style="border-color:var(--gold);color:var(--gold);background:#fff6d7">Guadalajara y alrededores</span>
+        <h1>Tu casa propia más cerca de lo que imaginas.</h1>
+        <p>Te acompañamos con <strong>Transparencia, Honestidad y Calidad</strong>, de principio a fin.</p>
+        <div class="cta-bar">
+          <a class="btn primary" href="#contacto">Quiero información</a>
+          <a class="btn ghost" href="#catalogo">Ver desarrollos</a>
+        </div>
+        <div class="badges">
+          <div class="badge">Créditos: Infonavit · Fovissste · Bancario</div>
+          <div class="badge">Atención por WhatsApp</div>
+          <div class="badge">Preventa y entrega inmediata</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CATÁLOGO -->
+    <section id="catalogo" class="section">
+      <div class="container">
+        <h2>Catálogo de desarrollos</h2>
+        <p class="muted" style="color:var(--muted);margin:0 0 14px">Trabajamos con los desarrollos más importantes de la ciudad. Estas son algunas opciones para comenzar:</p>
+
+        <div class="cards">
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1600585154340-1e1a1f7a8f5c?q=80&w=1200&auto=format&fit=crop" alt="Departamentos modernos" />
+            <div class="p">
+              <h3>Departamentos urbanos</h3>
+              <div class="meta">2–3 recámaras · Amenidades · Plusvalía</div>
+              <div class="row">
+                <span>Desde <strong>$1.3 MDP</strong></span>
+                <a class="btn" href="#contacto" data-dev="Departamentos urbanos">Quiero saber más</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c52f?q=80&w=1200&auto=format&fit=crop" alt="Casas familiares" />
+            <div class="p">
+              <h3>Casas familiares con áreas verdes</h3>
+              <div class="meta">Asadores · Gimnasio al aire libre · Seguridad</div>
+              <div class="row">
+                <span>Desde <strong>$1.8 MDP</strong></span>
+                <a class="btn" href="#contacto" data-dev="Casas familiares">Quiero saber más</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=1200&auto=format&fit=crop" alt="Opciones premium" />
+            <div class="p">
+              <h3>Opciones premium</h3>
+              <div class="meta">Acabados de lujo · Amenidades completas</div>
+              <div class="row">
+                <span>Desde <strong>$3.2 MDP</strong></span>
+                <a class="btn" href="#contacto" data-dev="Opciones premium">Quiero saber más</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1600585154512-527c3735ac71?q=80&w=1200&auto=format&fit=crop" alt="Entrega inmediata" />
+            <div class="p">
+              <h3>Listas para entrega</h3>
+              <div class="meta">Propiedades disponibles hoy mismo</div>
+              <div class="row">
+                <span>Desde <strong>$1.6 MDP</strong></span>
+                <a class="btn" href="#contacto" data-dev="Entrega inmediata">Quiero saber más</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- PRE-VENTA -->
+    <section id="preventa" class="section">
+      <div class="container">
+        <h2>Propiedades en Pre-venta</h2>
+        <p class="muted" style="color:var(--muted);margin:0 0 14px">
+          Anticipa tu inversión y asegura tu hogar al mejor precio. Estas son nuestras opciones en pre-venta:
+        </p>
+        <div class="cards">
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1200&auto=format&fit=crop" alt="Departamentos en preventa" />
+            <div class="p">
+              <h3>Departamentos en crecimiento</h3>
+              <div class="meta">1–2 recámaras · Plusvalía garantizada</div>
+              <div class="row">
+                <span>Desde <strong>$950,000</strong></span>
+                <a class="btn" href="#contacto" data-dev="Preventa departamentos">Quiero saber más</a>
+              </div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1600047507221-67e10f0ebd43?q=80&w=1200&auto=format&fit=crop" alt="Casas en preventa" />
+            <div class="p">
+              <h3>Casas en desarrollo</h3>
+              <div class="meta">Espacios amplios · Nuevas amenidades</div>
+              <div class="row">
+                <span>Desde <strong>$1.4 MDP</strong></span>
+                <a class="btn" href="#contacto" data-dev="Preventa casas">Quiero saber más</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+    <!-- USADAS BAJO COSTO -->
+    <section id="usadas" class="section">
+      <div class="container">
+        <h2>Propiedades usadas de bajo costo</h2>
+        <p class="muted" style="color:var(--muted);margin:0 0 14px">
+          Opciones accesibles para comenzar tu patrimonio con una inversión más ligera.
+        </p>
+        <div class="cards">
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop" alt="Casa usada económica" />
+            <div class="p">
+              <h3>Casa en Zapopan</h3>
+              <div class="meta">2 recámaras · 1 baño · Patio pequeño</div>
+              <div class="row">
+                <span>Desde <strong>$690,000</strong></span>
+                <a class="btn" href="#contacto" data-dev="Casa usada Zapopan">Quiero saber más</a>
+              </div>
+            </div>
+          </article>
+          <article class="card">
+            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118d?q=80&w=1200&auto=format&fit=crop" alt="Departamento usado económico" />
+            <div class="p">
+              <h3>Departamento Tonalá</h3>
+              <div class="meta">2 recámaras · Transporte cercano</div>
+              <div class="row">
+                <span>Desde <strong>$750,000</strong></span>
+                <a class="btn" href="#contacto" data-dev="Departamento usado Tonalá">Quiero saber más</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- QUIÉNES SOMOS -->
+    <section id="quienes" class="section about">
+      <div class="container">
+        <h2>Quiénes somos</h2>
+        <p style="margin:0 0 10px">En <strong>Trhoncal Homes</strong> ponemos al centro tres pilares: <strong>Transparencia</strong>, <strong>Honestidad</strong> y <strong>Calidad</strong>. Te acompañamos desde el primer contacto hasta la entrega de llaves, con información clara, trámites cuidados y seguimiento real por WhatsApp.</p>
+      </div>
+    </section>
+
+    <!-- CONTACTO / FORMULARIO -->
+    <section id="contacto" class="section">
+      <div class="container">
+        <h2>Recibe información personalizada</h2>
+        <p style="color:var(--muted);margin:0 0 14px">Déjanos tus datos y un asesor te escribe por WhatsApp. Tiempo de respuesta habitual: 5–15 minutos.</p>
+        <form onsubmit="return handleSubmit(event)">
+          
+          <div class="grid cols-2">
+            <div>
+              <label>Nombre completo</label>
+              <input required name="nombre" placeholder="Tu nombre" />
+            </div>
+            <div>
+              <label>Correo electrónico</label>
+              <input required type="email" name="email" placeholder="tu@correo.com" />
+            </div>
+          </div>
+          <div class="grid cols-2">
+            <div>
+              <label>WhatsApp</label>
+              <input required name="whatsapp" placeholder="Ej. 33 3724 1151" />
+            </div>
+
+          <div class="grid cols-2">
+            <div>
+              <label>Zona de interés</label>
+              <select name="zona">
+                <option value="Zapopan">Zapopan</option>
+                <option value="Tlajomulco">Tlajomulco</option>
+                <option value="Tonalá">Tonalá</option>
+                <option value="El Salto">El Salto</option>
+                <option value="Centro GDL">Guadalajara Centro</option>
+                <option value="Otra">Otra</option>
+              </select>
+            </div>
+            <div>
+              <label>Presupuesto aproximado</label>
+              <select name="presupuesto">
+                <option value="$700k-$1.2M">$700,000 – $1,200,000</option>
+                <option value="$1.2M-$2M">$1,200,000 – $2,000,000</option>
+                <option value="$2M-$4M">$2,000,000 – $4,000,000</option>
+                <option value=">$4M">Más de $4,000,000</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label>Mensaje</label>
+            <textarea name="mensaje" rows="4" placeholder="Cuéntanos qué buscas (recámaras, amenidades, tiempo de compra)..."></textarea>
+          </div>
+          <div class="cta-bar">
+            <button class="btn primary" type="submit">Enviar y hablar por WhatsApp</button>
+            <a class="btn" href="https://wa.me/523337241151?text=Hola%20Trhoncal%20Homes%2C%20quiero%20informaci%C3%B3n%20sobre%20propiedades" target="_blank" rel="noopener">Escribir directo</a>
+          </div>
+          <p id="form-msg" style="margin:10px 0 0;display:none"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Zonas y desarrollos</h2>
+        <p style="color:var(--muted);margin:0 0 12px">Mapa de referencia. (Cuando gustes integramos Google Maps con tu API Key).</p>
+        <div class="map" id="map"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:space-between">
+        <small>© <span id="year"></span> Trhoncal Homes. Todos los derechos reservados.</small>
+        <small>Privacidad · Términos · Aviso legal</small>
+      </div>
+    </div>
+  </footer>
+
+  <a class="wa-float" href="https://wa.me/523337241151?text=Hola%20Trhoncal%20Homes%2C%20quiero%20informaci%C3%B3n" target="_blank" rel="noopener">WhatsApp</a>
+
+  <script>
+    
+    // ===== OTP verification state & helpers =====
+    let verifiedEmail = false;
+    let verifiedWhats = false;
+
+    function toastOTP(msg, ok=false){
+      const el = document.getElementById('otp-status');
+      el.style.display = 'block';
+      el.style.color = ok ? 'green' : 'crimson';
+      el.textContent = msg;
+    }
+
+    // Enviar código al correo
+    const btnEmail = document.getElementById('sendEmailCode');
+    if (btnEmail) btnEmail.onclick = async () => {
+      const email = (document.querySelector('input[name="email"]')?.value || '').trim();
+      if (!email) return toastOTP('Escribe tu correo primero');
+      try {
+        await fetch(WEBAPP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'send_otp', channel: 'email', email })
+        });
+        toastOTP('Código enviado al correo. Revisa tu bandeja (o SPAM).', true);
+      } catch (e) { toastOTP('No se pudo enviar el código a correo'); }
+    };
+
+    // Enviar código a WhatsApp
+    const btnWa = document.getElementById('sendWaCode');
+    if (btnWa) btnWa.onclick = async () => {
+      if (!document.getElementById('consentWa')?.checked){
+        return toastOTP('Marca la casilla de consentimiento para WhatsApp');
+      }
+      const whatsapp = (document.querySelector('input[name="whatsapp"]')?.value || '').replace(/\D/g,'');
+      if (whatsapp.length < 10) return toastOTP('Escribe tu WhatsApp a 10 dígitos');
+      try {
+        await fetch(WEBAPP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'send_otp', channel: 'whatsapp', whatsapp })
+        });
+        toastOTP('Código enviado a tu WhatsApp.', true);
+      } catch (e) { toastOTP('No se pudo enviar el código a WhatsApp'); }
+    };
+
+    // Verificar código
+    const btnVerify = document.getElementById('verifyOtp');
+    if (btnVerify) btnVerify.onclick = async () => {
+      const code = (document.getElementById('otp')?.value || '').trim();
+      const email = (document.querySelector('input[name="email"]')?.value || '').trim();
+      const whatsapp = (document.querySelector('input[name="whatsapp"]')?.value || '').replace(/\D/g,'');
+
+      if (!code) return toastOTP('Escribe el código que te llegó');
+      try {
+        const r = await fetch(WEBAPP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'verify_otp', email, whatsapp, code })
+        });
+        const t = await r.json().catch(()=>({ok:false}));
+        if (t.ok) {
+          verifiedEmail = !!t.verifiedEmail;
+          verifiedWhats = !!t.verifiedWhats;
+          toastOTP('¡Verificado!', true);
+        } else {
+          toastOTP('Código incorrecto o vencido');
+        }
+      } catch (e) { toastOTP('No se pudo verificar'); }
+    };
+
+    const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw82j79ZCIuspkIiESSPnBEKc1HonqObKcZUy__fiXyvIyLKJm1vIrfU7H-GFZDA7O0Gw/exec";
+    document.getElementById('year').textContent = new Date().getFullYear();
+    function handleSubmit(e){
+      // Requiere verificación (al menos correo o whatsapp)
+      if (!verifiedEmail && !verifiedWhats) {
+        toastOTP('Verifica tu correo o tu WhatsApp antes de enviar');
+        e.preventDefault();
+        return false;
+      }
+      e.preventDefault();
+      const formEl = e.target;
+      const data = Object.fromEntries(new FormData(formEl).entries());
+
+      const payload = {
+        nombre: data.nombre || "",
+        email: data.email || "",
+        whatsapp: data.whatsapp || "",
+        zona: data.zona || "",
+        presupuesto: data.presupuesto || "",
+        mensaje: data.mensaje || "",
+        verificado_email: verifiedEmail ? 1 : 0,
+        verificado_whatsapp: verifiedWhats ? 1 : 0,
+        consent_whatsapp: document.getElementById('consentWa')?.checked ? 1 : 0
+      };
+
+      const statusEl = document.getElementById('form-msg');
+      statusEl.style.display='block';
+      statusEl.textContent='Enviando tus datos...';
+
+      const doPost = fetch(WEBAPP_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      }).catch(() => null);
+
+      const msg = `Hola Trhoncal Homes, soy ${encodeURIComponent(data.nombre)}. ` +
+                  `Mi WhatsApp es ${encodeURIComponent(data.whatsapp)}. ` +
+                  (data.email ? `Mi correo es ${encodeURIComponent(data.email)}. ` : "") +
+                  `Zona: ${encodeURIComponent(data.zona)}. Presupuesto: ${encodeURIComponent(data.presupuesto)}. ` +
+                  `${encodeURIComponent(data.mensaje || '')}`;
+      const wa = `https://wa.me/523337241151?text=${msg}`;
+
+      window.open(wa,'_blank');
+
+      doPost.finally(() => {
+        statusEl.textContent = 'Listo. Abriendo WhatsApp...';
+      });
+
+      return false;
+    }
+  </script>
+</body>
+</html>
