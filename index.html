@@ -51,47 +51,31 @@
     .wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:#fff;padding:14px 16px;border-radius:999px;box-shadow:0 8px 22px rgba(0,0,0,.18);font-weight:800;z-index:60}
     .logo-img{height:150px}
 
-/* ===== Mobile header tweaks ===== */
-@media(max-width:700px){
-  header .wrap{
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    height:auto;
-    padding:10px 0 6px;
-    gap:8px;
-  }
-  .logo-img{
-    width:min(520px, 90vw);
-    height:auto;
-  }
-  nav{
-    width:100%;
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-    padding:0 12px 8px;
-    -webkit-overflow-scrolling:touch;
-  }
-  nav a{
-    flex:0 0 auto;
-    padding:8px 12px;
-    border:1px solid #e2e8f0;
-    border-radius:999px;
-    background:#fff;
-    color:#334155;
-    margin-left:0;
-  }
-}
-/* ===== Hide WhatsApp direct + floating globally (toggle via <html> attrs) ===== */
-.wa-direct{ display:none !important; }
-.wa-float{ display:none !important; }
-/* Para reactivarlos, edita la etiqueta <html>:
-   <html lang="es" show-wa-direct="1" show-wa-float="1">
-*/
-html[show-wa-direct="1"] .wa-direct{ display:inline-block !important; }
-html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
-
+    /* ===== Mobile header tweaks (logo grande + menú scrollable) ===== */
+    @media(max-width:700px){
+      header .wrap{
+        flex-direction:column;
+        align-items:center;
+        justify-content:center;
+        height:auto;
+        padding:10px 0 6px;
+        gap:8px;
+      }
+      .logo-img{width:min(520px, 90vw);height:auto}
+      nav{
+        width:100%;
+        display:flex;gap:10px;overflow-x:auto;padding:0 12px 8px;
+        -webkit-overflow-scrolling:touch
+      }
+      nav a{
+        flex:0 0 auto;padding:8px 12px;border:1px solid #e2e8f0;border-radius:999px;background:#fff;color:#334155;margin-left:0
+      }
+    }
+    /* ===== Ocultar WhatsApp directo y burbuja (reactiva con atributos en <html>) ===== */
+    .wa-direct{display:none !important}
+    .wa-float{display:none !important}
+    html[show-wa-direct="1"] .wa-direct{display:inline-block !important}
+    html[show-wa-float="1"] .wa-float{display:inline-flex !important}
   </style>
 </head>
 <body>
@@ -104,6 +88,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         <a href="#catalogo">Desarrollos</a>
         <a href="#preventa">Pre-venta</a>
         <a href="#usadas">Usadas bajo costo</a>
+        <!-- En campaña agregamos el enlace a index-otp.html si quieres -->
         <a href="#quienes">Quiénes somos</a>
         <a href="#contacto">Contacto</a>
       </nav>
@@ -137,7 +122,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
 
         <div class="cards">
           <article class="card">
-            <img src="https://images.unsplash.com/photo-1600585154340-1e1a1f7a8f5c?q=80&w=1200&auto=format&fit=crop" alt="Departamentos modernos" />
+            <img src="assets/desarrollos-depas-01.jpg" alt="Departamentos modernos" />
             <div class="p">
               <h3>Departamentos urbanos</h3>
               <div class="meta">2–3 recámaras · Amenidades · Plusvalía</div>
@@ -149,7 +134,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
           </article>
 
           <article class="card">
-            <img src="https://images.unsplash.com/photo-1502005229762-cf1b2da7c52f?q=80&w=1200&auto=format&fit=crop" alt="Casas familiares" />
+            <img src="assets/desarrollos-casas-01.jpg" alt="Casas familiares" />
             <div class="p">
               <h3>Casas familiares con áreas verdes</h3>
               <div class="meta">Asadores · Gimnasio al aire libre · Seguridad</div>
@@ -161,7 +146,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
           </article>
 
           <article class="card">
-            <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=1200&auto=format&fit=crop" alt="Opciones premium" />
+            <img src="assets/desarrollos-premium-01.jpg" alt="Opciones premium" />
             <div class="p">
               <h3>Opciones premium</h3>
               <div class="meta">Acabados de lujo · Amenidades completas</div>
@@ -173,7 +158,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
           </article>
 
           <article class="card">
-            <img src="https://images.unsplash.com/photo-1600585154512-527c3735ac71?q=80&w=1200&auto=format&fit=crop" alt="Entrega inmediata" />
+            <img src="assets/desarrollos-entrega-01.jpg" alt="Entrega inmediata" />
             <div class="p">
               <h3>Listas para entrega</h3>
               <div class="meta">Propiedades disponibles hoy mismo</div>
@@ -186,6 +171,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         </div>
       </div>
     </section>
+
     <!-- PRE-VENTA -->
     <section id="preventa" class="section">
       <div class="container">
@@ -195,7 +181,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         </p>
         <div class="cards">
           <article class="card">
-            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=1200&auto=format&fit=crop" alt="Departamentos en preventa" />
+            <img src="assets/preventa-depas-01.jpg" alt="Departamentos en preventa" />
             <div class="p">
               <h3>Departamentos en crecimiento</h3>
               <div class="meta">1–2 recámaras · Plusvalía garantizada</div>
@@ -206,7 +192,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
             </div>
           </article>
           <article class="card">
-            <img src="https://images.unsplash.com/photo-1600047507221-67e10f0ebd43?q=80&w=1200&auto=format&fit=crop" alt="Casas en preventa" />
+            <img src="assets/preventa-casas-01.jpg" alt="Casas en preventa" />
             <div class="p">
               <h3>Casas en desarrollo</h3>
               <div class="meta">Espacios amplios · Nuevas amenidades</div>
@@ -219,6 +205,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         </div>
       </div>
     </section>
+
     <!-- USADAS BAJO COSTO -->
     <section id="usadas" class="section">
       <div class="container">
@@ -228,7 +215,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         </p>
         <div class="cards">
           <article class="card">
-            <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=1200&auto=format&fit=crop" alt="Casa usada económica" />
+            <img src="assets/usada-casa-01.jpg" alt="Casa usada económica" />
             <div class="p">
               <h3>Casa en Zapopan</h3>
               <div class="meta">2 recámaras · 1 baño · Patio pequeño</div>
@@ -239,7 +226,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
             </div>
           </article>
           <article class="card">
-            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118d?q=80&w=1200&auto=format&fit=crop" alt="Departamento usado económico" />
+            <img src="assets/usada-depa-01.jpg" alt="Departamento usado económico" />
             <div class="p">
               <h3>Departamento Tonalá</h3>
               <div class="meta">2 recámaras · Transporte cercano</div>
@@ -252,8 +239,6 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         </div>
       </div>
     </section>
-
-
 
     <!-- QUIÉNES SOMOS -->
     <section id="quienes" class="section about">
@@ -342,28 +327,15 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
   <a class="wa-float" href="https://wa.me/523337241151?text=Hola%20Trhoncal%20Homes%2C%20quiero%20informaci%C3%B3n" target="_blank" rel="noopener">WhatsApp</a>
 
   <script>
-    
-    // ===== UX boosts: autocomplete, prefill, phone formatting =====
+    // Autocomplete + prefill + formato teléfono
     document.querySelector('input[name="nombre"]')?.setAttribute('autocomplete','name');
     document.querySelector('input[name="email"]')?.setAttribute('autocomplete','email');
     document.querySelector('input[name="whatsapp"]')?.setAttribute('autocomplete','tel');
-    const LS_KEY = 'throncalLead';
-    window.addEventListener('DOMContentLoaded', () => {
-      try {
-        const saved = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
-        for (const [k,v] of Object.entries(saved)) {
-          const el = document.querySelector(`[name="${k}"]`);
-          if (el && !el.value) el.value = v;
-        }
-      } catch {}
-    });
-    const waInput = document.querySelector('input[name="whatsapp"]');
+    const LS_KEY='throncalLead';
+    window.addEventListener('DOMContentLoaded',()=>{try{const s=JSON.parse(localStorage.getItem(LS_KEY)||'{}');for(const[k,v]of Object.entries(s)){const el=document.querySelector(`[name="${k}"]`);if(el&&!el.value)el.value=v}}catch{}});
+    const waInput=document.querySelector('input[name="whatsapp"]');
     waInput?.setAttribute('inputmode','tel');
-    waInput?.addEventListener('input', (e) => {
-      let d = e.target.value.replace(/\D/g,'').slice(0,10);
-      let f = d.replace(/(\d{2})(\d{0,4})(\d{0,4}).*/, (m,a,b,c) => c ? `${a} ${b} ${c}` : b ? `${a} ${b}` : a);
-      e.target.value = f;
-    });
+    waInput?.addEventListener('input',e=>{let d=e.target.value.replace(/\D/g,'').slice(0,10);let f=d.replace(/(\d{2})(\d{0,4})(\d{0,4}).*/, (m,a,b,c)=>c?`${a} ${b} ${c}`:b?`${a} ${b}`:a);e.target.value=f});
 
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw82j79ZCIuspkIiESSPnBEKc1HonqObKcZUy__fiXyvIyLKJm1vIrfU7H-GFZDA7O0Gw/exec";
     document.getElementById('year').textContent = new Date().getFullYear();
@@ -400,15 +372,6 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
 
       window.open(wa,'_blank');
 
-      try {
-        localStorage.setItem(LS_KEY, JSON.stringify({
-          nombre: payload.nombre,
-          email: payload.email,
-          whatsapp: payload.whatsapp,
-          zona: payload.zona,
-          presupuesto: payload.presupuesto
-        }));
-      } catch {}
       doPost.finally(() => {
         statusEl.textContent = 'Listo. Abriendo WhatsApp...';
       });
