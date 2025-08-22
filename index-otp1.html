@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" show-wa-direct="0" show-wa-float="0">
+<html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -49,48 +49,7 @@
     .map{width:100%;height:360px;border:1px solid #e2e8f0;border-radius:16px;overflow:hidden}
     footer{padding:32px 0;color:var(--muted)}
     .wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:#fff;padding:14px 16px;border-radius:999px;box-shadow:0 8px 22px rgba(0,0,0,.18);font-weight:800;z-index:60}
-    .logo-img{height:150px}
-/* ===== Mobile header tweaks ===== */
-@media(max-width:700px){
-  header .wrap{
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    height:auto;
-    padding:10px 0 6px;
-    gap:8px;
-  }
-  .logo-img{
-    width:min(520px, 90vw);
-    height:auto;
-  }
-  nav{
-    width:100%;
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-    padding:0 12px 8px;
-    -webkit-overflow-scrolling:touch;
-  }
-  nav a{
-    flex:0 0 auto;
-    padding:8px 12px;
-    border:1px solid #e2e8f0;
-    border-radius:999px;
-    background:#fff;
-    color:#334155;
-    margin-left:0;
-  }
-}
-/* ===== Hide WhatsApp direct + floating globally (toggle via <html> attrs) ===== */
-.wa-direct{ display:none !important; }
-.wa-float{ display:none !important; }
-/* To re-enable, edit the <html> tag:
-   <html lang="es" show-wa-direct="1" show-wa-float="1">
-*/
-html[show-wa-direct="1"] .wa-direct{ display:inline-block !important; }
-html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
-
+    .logo-img{height:50px}
   </style>
 </head>
 <body>
@@ -103,7 +62,6 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         <a href="#catalogo">Desarrollos</a>
         <a href="#preventa">Pre-venta</a>
         <a href="#usadas">Usadas bajo costo</a>
-        <a class="btn" href="index-otp.html?utm_source=header_cta">Verificar por seguridad</a>
         <a href="#quienes">Quiénes somos</a>
         <a href="#contacto">Contacto</a>
       </nav>
@@ -314,7 +272,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
           </div>
           <div class="cta-bar">
             <button class="btn primary" type="submit">Enviar y hablar por WhatsApp</button>
-            <a class="btn wa-direct" href="https://wa.me/523337241151?text=Hola%20Trhoncal%20Homes%2C%20quiero%20informaci%C3%B3n%20sobre%20propiedades" target="_blank" rel="noopener">Escribir directo</a>
+            <a class="btn" href="https://wa.me/523337241151?text=Hola%20Trhoncal%20Homes%2C%20quiero%20informaci%C3%B3n%20sobre%20propiedades" target="_blank" rel="noopener">Escribir directo</a>
           </div>
           <p id="form-msg" style="margin:10px 0 0;display:none"></p>
         </form>
@@ -343,31 +301,84 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
 
   <script>
     
-    // ===== UX boosts: autocomplete, prefill, phone formatting =====
-    document.querySelector('input[name="nombre"]')?.setAttribute('autocomplete','name');
-    document.querySelector('input[name="email"]')?.setAttribute('autocomplete','email');
-    document.querySelector('input[name="whatsapp"]')?.setAttribute('autocomplete','tel');
-    const LS_KEY = 'throncalLead';
-    window.addEventListener('DOMContentLoaded', () => {
+    // ===== OTP verification state & helpers =====
+    let verifiedEmail = false;
+    let verifiedWhats = false;
+
+    function toastOTP(msg, ok=false){
+      const el = document.getElementById('otp-status');
+      el.style.display = 'block';
+      el.style.color = ok ? 'green' : 'crimson';
+      el.textContent = msg;
+    }
+
+    // Enviar código al correo
+    const btnEmail = document.getElementById('sendEmailCode');
+    if (btnEmail) btnEmail.onclick = async () => {
+      const email = (document.querySelector('input[name="email"]')?.value || '').trim();
+      if (!email) return toastOTP('Escribe tu correo primero');
       try {
-        const saved = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
-        for (const [k,v] of Object.entries(saved)) {
-          const el = document.querySelector(`[name="${k}"]`);
-          if (el && !el.value) el.value = v;
+        await fetch(WEBAPP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'send_otp', channel: 'email', email })
+        });
+        toastOTP('Código enviado al correo. Revisa tu bandeja (o SPAM).', true);
+      } catch (e) { toastOTP('No se pudo enviar el código a correo'); }
+    };
+
+    // Enviar código a WhatsApp
+    const btnWa = document.getElementById('sendWaCode');
+    if (btnWa) btnWa.onclick = async () => {
+      if (!document.getElementById('consentWa')?.checked){
+        return toastOTP('Marca la casilla de consentimiento para WhatsApp');
+      }
+      const whatsapp = (document.querySelector('input[name="whatsapp"]')?.value || '').replace(/\D/g,'');
+      if (whatsapp.length < 10) return toastOTP('Escribe tu WhatsApp a 10 dígitos');
+      try {
+        await fetch(WEBAPP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'send_otp', channel: 'whatsapp', whatsapp })
+        });
+        toastOTP('Código enviado a tu WhatsApp.', true);
+      } catch (e) { toastOTP('No se pudo enviar el código a WhatsApp'); }
+    };
+
+    // Verificar código
+    const btnVerify = document.getElementById('verifyOtp');
+    if (btnVerify) btnVerify.onclick = async () => {
+      const code = (document.getElementById('otp')?.value || '').trim();
+      const email = (document.querySelector('input[name="email"]')?.value || '').trim();
+      const whatsapp = (document.querySelector('input[name="whatsapp"]')?.value || '').replace(/\D/g,'');
+
+      if (!code) return toastOTP('Escribe el código que te llegó');
+      try {
+        const r = await fetch(WEBAPP_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ action: 'verify_otp', email, whatsapp, code })
+        });
+        const t = await r.json().catch(()=>({ok:false}));
+        if (t.ok) {
+          verifiedEmail = !!t.verifiedEmail;
+          verifiedWhats = !!t.verifiedWhats;
+          toastOTP('¡Verificado!', true);
+        } else {
+          toastOTP('Código incorrecto o vencido');
         }
-      } catch {}
-    });
-    const waInput = document.querySelector('input[name="whatsapp"]');
-    waInput?.setAttribute('inputmode','tel');
-    waInput?.addEventListener('input', (e) => {
-      let d = e.target.value.replace(/\D/g,'').slice(0,10);
-      let f = d.replace(/(\d{2})(\d{0,4})(\d{0,4}).*/, (m,a,b,c) => c ? `${a} ${b} ${c}` : b ? `${a} ${b}` : a);
-      e.target.value = f;
-    });
+      } catch (e) { toastOTP('No se pudo verificar'); }
+    };
 
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw82j79ZCIuspkIiESSPnBEKc1HonqObKcZUy__fiXyvIyLKJm1vIrfU7H-GFZDA7O0Gw/exec";
     document.getElementById('year').textContent = new Date().getFullYear();
     function handleSubmit(e){
+      // Requiere verificación (al menos correo o whatsapp)
+      if (!verifiedEmail && !verifiedWhats) {
+        toastOTP('Verifica tu correo o tu WhatsApp antes de enviar');
+        e.preventDefault();
+        return false;
+      }
       e.preventDefault();
       const formEl = e.target;
       const data = Object.fromEntries(new FormData(formEl).entries());
@@ -378,7 +389,10 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
         whatsapp: data.whatsapp || "",
         zona: data.zona || "",
         presupuesto: data.presupuesto || "",
-        mensaje: data.mensaje || ""
+        mensaje: data.mensaje || "",
+        verificado_email: verifiedEmail ? 1 : 0,
+        verificado_whatsapp: verifiedWhats ? 1 : 0,
+        consent_whatsapp: document.getElementById('consentWa')?.checked ? 1 : 0
       };
 
       const statusEl = document.getElementById('form-msg');
@@ -400,15 +414,6 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
 
       window.open(wa,'_blank');
 
-      try {
-        localStorage.setItem(LS_KEY, JSON.stringify({
-          nombre: payload.nombre,
-          email: payload.email,
-          whatsapp: payload.whatsapp,
-          zona: payload.zona,
-          presupuesto: payload.presupuesto
-        }));
-      } catch {}
       doPost.finally(() => {
         statusEl.textContent = 'Listo. Abriendo WhatsApp...';
       });

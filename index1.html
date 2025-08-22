@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="es" show-wa-direct="0" show-wa-float="0">
+<html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -50,47 +50,6 @@
     footer{padding:32px 0;color:var(--muted)}
     .wa-float{position:fixed;right:18px;bottom:18px;background:#25D366;color:#fff;padding:14px 16px;border-radius:999px;box-shadow:0 8px 22px rgba(0,0,0,.18);font-weight:800;z-index:60}
     .logo-img{height:150px}
-/* ===== Mobile header tweaks ===== */
-@media(max-width:700px){
-  header .wrap{
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    height:auto;
-    padding:10px 0 6px;
-    gap:8px;
-  }
-  .logo-img{
-    width:min(520px, 90vw);
-    height:auto;
-  }
-  nav{
-    width:100%;
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-    padding:0 12px 8px;
-    -webkit-overflow-scrolling:touch;
-  }
-  nav a{
-    flex:0 0 auto;
-    padding:8px 12px;
-    border:1px solid #e2e8f0;
-    border-radius:999px;
-    background:#fff;
-    color:#334155;
-    margin-left:0;
-  }
-}
-/* ===== Hide WhatsApp direct + floating globally (toggle via <html> attrs) ===== */
-.wa-direct{ display:none !important; }
-.wa-float{ display:none !important; }
-/* To re-enable, edit the <html> tag:
-   <html lang="es" show-wa-direct="1" show-wa-float="1">
-*/
-html[show-wa-direct="1"] .wa-direct{ display:inline-block !important; }
-html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
-
   </style>
 </head>
 <body>
@@ -314,7 +273,7 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
           </div>
           <div class="cta-bar">
             <button class="btn primary" type="submit">Enviar y hablar por WhatsApp</button>
-            <a class="btn wa-direct" href="https://wa.me/523337241151?text=Hola%20Trhoncal%20Homes%2C%20quiero%20informaci%C3%B3n%20sobre%20propiedades" target="_blank" rel="noopener">Escribir directo</a>
+            <a class="btn" href="https://wa.me/523337241151?text=Hola%20Trhoncal%20Homes%2C%20quiero%20informaci%C3%B3n%20sobre%20propiedades" target="_blank" rel="noopener">Escribir directo</a>
           </div>
           <p id="form-msg" style="margin:10px 0 0;display:none"></p>
         </form>
@@ -342,29 +301,6 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
   <a class="wa-float" href="https://wa.me/523337241151?text=Hola%20Trhoncal%20Homes%2C%20quiero%20informaci%C3%B3n" target="_blank" rel="noopener">WhatsApp</a>
 
   <script>
-    
-    // ===== UX boosts: autocomplete, prefill, phone formatting =====
-    document.querySelector('input[name="nombre"]')?.setAttribute('autocomplete','name');
-    document.querySelector('input[name="email"]')?.setAttribute('autocomplete','email');
-    document.querySelector('input[name="whatsapp"]')?.setAttribute('autocomplete','tel');
-    const LS_KEY = 'throncalLead';
-    window.addEventListener('DOMContentLoaded', () => {
-      try {
-        const saved = JSON.parse(localStorage.getItem(LS_KEY) || '{}');
-        for (const [k,v] of Object.entries(saved)) {
-          const el = document.querySelector(`[name="${k}"]`);
-          if (el && !el.value) el.value = v;
-        }
-      } catch {}
-    });
-    const waInput = document.querySelector('input[name="whatsapp"]');
-    waInput?.setAttribute('inputmode','tel');
-    waInput?.addEventListener('input', (e) => {
-      let d = e.target.value.replace(/\D/g,'').slice(0,10);
-      let f = d.replace(/(\d{2})(\d{0,4})(\d{0,4}).*/, (m,a,b,c) => c ? `${a} ${b} ${c}` : b ? `${a} ${b}` : a);
-      e.target.value = f;
-    });
-
     const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbw82j79ZCIuspkIiESSPnBEKc1HonqObKcZUy__fiXyvIyLKJm1vIrfU7H-GFZDA7O0Gw/exec";
     document.getElementById('year').textContent = new Date().getFullYear();
     function handleSubmit(e){
@@ -400,15 +336,6 @@ html[show-wa-float="1"]  .wa-float{  display:inline-flex !important; }
 
       window.open(wa,'_blank');
 
-      try {
-        localStorage.setItem(LS_KEY, JSON.stringify({
-          nombre: payload.nombre,
-          email: payload.email,
-          whatsapp: payload.whatsapp,
-          zona: payload.zona,
-          presupuesto: payload.presupuesto
-        }));
-      } catch {}
       doPost.finally(() => {
         statusEl.textContent = 'Listo. Abriendo WhatsApp...';
       });
